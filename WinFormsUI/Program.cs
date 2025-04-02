@@ -1,6 +1,6 @@
-namespace Algorithm_Visualizer.WinFormsUI;
+namespace WinFormsUI;
 
-using System.Windows;
+using System.Windows.Forms;
 
 internal static class Program {
     [STAThread]

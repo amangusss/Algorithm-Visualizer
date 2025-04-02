@@ -1,50 +1,51 @@
-﻿namespace Algorithm_Visualizer.Core.Algorithms.Sorting;
+﻿namespace Core.Algorithms.Sorting;
 
 using Interfaces;
 
 public sealed class QuickSort : ISortingAlgorithm {
     public string Name => "Quick Sort";
-    public int Speed { get; set; } = 30;
-    private List<int[]> _steps = new();
+    public int Speed { get; set; } = 50;
     
     public int[] Execute(int[] array) {
         return ExecuteWithSteps(array).Last();
     }
     
     public IEnumerable<int[]> ExecuteWithSteps(int[] array) {
-        _steps.Clear();
-        _steps.Add((int[])array.Clone());
-        QuickSortInternal(array, 0, array.Length - 1);
-        return _steps;
+        var steps = new List<int[]> { (int[])array.Clone() };
+        QuickSortInternal(array, 0, array.Length - 1, steps);
+        return steps;
     }
 
-    private void QuickSortInternal(int[] array, int low, int high) {
+    private void QuickSortInternal(int[] array, int low, int high, List<int[]> steps) {
         if (low < high) {
-            int pivot = Partition(array, low, high);
-            QuickSortInternal(array, low, pivot - 1);
-            QuickSortInternal(array, pivot + 1, high);
+            var pivotIndex = Partition(array, low, high, steps);
+            QuickSortInternal(array, low, pivotIndex - 1, steps);
+            QuickSortInternal(array, pivotIndex + 1, high, steps);
         }
     }
 
-    private int Partition(int[] array, int low, int high) {
-        int pivot = array[high];
-        int i = low - 1;
+    private int Partition(int[] array, int low, int high, List<int[]> steps) {
+        var pivot = array[high];
+        var i = low - 1;
 
-        for (int j = low; j < high; j++) {
-            if (array[j] < pivot) {
+        for (var j = low; j < high; j++) {
+            if (array[j] <= pivot) {
                 i++;
-                Swap(ref array[i], ref array[j]);
-                _steps.Add((int[])array.Clone());
+                Swap(array, i, j);
+                steps.Add((int[])array.Clone());
             }
         }
-        Swap(ref array[i + 1], ref array[high]);
-        _steps.Add((int[])array.Clone());
+
+        Swap(array, i + 1, high);
+        steps.Add((int[])array.Clone());
         return i + 1;
     }
 
-    private static void Swap(ref int a, ref int b) => (a, b) = (b, a);
+    private static void Swap(int[] array, int i, int j) {
+        (array[i], array[j]) = (array[j], array[i]);
+    }
 
-    public object Execute(object input) => ExecuteWithSteps((int[])input);
+    public object Execute(object input) => Execute((int[])input);
     
     IEnumerable<object> IAlgorithm.ExecuteWithSteps(object input) {
         return ExecuteWithSteps((int[])input).Cast<object>();
