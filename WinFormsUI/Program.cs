@@ -1,12 +1,13 @@
-using System.Windows;
-
 namespace Algorithm_Visualizer.WinFormsUI;
 
-internal static class Program
-{
+using System.Windows;
+
+internal static class Program {
     [STAThread]
-    private static void Main() {
-        ApplicationConfiguration.Initialize();
+    private static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
         Application.Run(new MainForm());
     }
 }

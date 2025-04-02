@@ -1,5 +1,7 @@
 ﻿namespace Algorithm_Visualizer.Tests.Core.Tests;
 
+using Xunit;
+
 using Algorithm_Visualizer.Core.Interfaces;
 
 public class InterfaceTests {

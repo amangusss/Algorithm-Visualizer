@@ -1,6 +1,6 @@
 namespace Algorithm_Visualizer.Core.Interfaces;
 
-public interface IAlgorithm {
+public interface IAlgorithm{
     string Name { get; }
     int Speed { get; set; }
     object Execute(object input);

@@ -1,5 +1,7 @@
 ﻿namespace Algorithm_Visualizer.Core.Interfaces;
 
-public interface ISortingAlgorithm : IAlgorithm {
-    IEnumerable<int[]> ExecuteWithSteps(int[] array);
-}   
+public interface ISortingAlgorithm : IAlgorithm
+{
+    new int[] Execute(int[] array);
+    new IEnumerable<int[]> ExecuteWithSteps(int[] array);
+}  
