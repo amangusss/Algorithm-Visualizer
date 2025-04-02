@@ -1,4 +1,4 @@
-namespace Algorithm_Visualizer.Core.Interfaces;
+namespace Core.Interfaces;
 
 public interface IAlgorithm{
     string Name { get; }
