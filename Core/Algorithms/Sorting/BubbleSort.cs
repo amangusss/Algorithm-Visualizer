@@ -34,5 +34,5 @@ public sealed class BubbleSort : ISortingAlgorithm {
     object IAlgorithm.Execute(object input) => Execute((int[])input);
 
     IEnumerable<object> IAlgorithm.ExecuteWithSteps(object input) => 
-        ExecuteWithSteps((int[])input).Cast<object>();
+        ExecuteWithSteps((int[])input);
 }

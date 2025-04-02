@@ -16,6 +16,7 @@ public sealed partial class MainForm : Form {
     private Button _resetButton;
     private NumericUpDown _arraySizeInput;
     private Button _generateButton;
+    private Label _statsLabel;
     
     private readonly ISortingAlgorithm[] _algorithms;
     
@@ -25,7 +26,9 @@ public sealed partial class MainForm : Form {
         _algorithms = new ISortingAlgorithm[] {
             new BubbleSort(),
             new QuickSort(),
-            new MergeSort()
+            new MergeSort(),
+            new InsertionSort(),
+            new SelectionSort()
         };
         
         _buffer = new Bitmap(800, 600);
@@ -92,6 +95,13 @@ public sealed partial class MainForm : Form {
         };
         _resetButton.Click += (s, e) => _visualizer.Reset();
         
+        _statsLabel = new Label {
+            Location = new Point(10, 50),
+            Width = 760,
+            Height = 20,
+            TextAlign = ContentAlignment.MiddleLeft
+        };
+        
         Controls.AddRange(new Control[] {
             _algorithmComboBox,
             _speedTrackBar,
@@ -99,7 +109,8 @@ public sealed partial class MainForm : Form {
             _generateButton,
             _startButton,
             _pauseButton,
-            _resetButton
+            _resetButton,
+            _statsLabel
         });
         
         ClientSize = new Size(800, 600);
@@ -121,6 +132,8 @@ public sealed partial class MainForm : Form {
         selectedAlgorithm.Speed = _speedTrackBar.Value;
         _visualizer.Initialize(selectedAlgorithm, array);
         _visualizer.Reset();
+        
+        UpdateStats(array);
     }
     
     private void OnFrameReady(Graphics g) {
@@ -131,5 +144,18 @@ public sealed partial class MainForm : Form {
     
     protected override void OnPaint(PaintEventArgs e) {
         e.Graphics.DrawImage(_buffer, 0, 0);
+    }
+    
+    private void UpdateStats(int[] array) {
+        var selectedAlgorithm = _algorithms[_algorithmComboBox.SelectedIndex];
+        var startTime = DateTime.Now;
+        var sortedArray = selectedAlgorithm.Execute((int[])array.Clone());
+        var endTime = DateTime.Now;
+        var executionTime = (endTime - startTime).TotalMilliseconds;
+        
+        _statsLabel.Text = $"Algorithm: {selectedAlgorithm.Name} | " +
+                          $"Array Size: {array.Length} | " +
+                          $"Execution Time: {executionTime:F2}ms | " +
+                          $"Speed: {selectedAlgorithm.Speed}";
     }
 }

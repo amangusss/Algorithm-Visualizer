@@ -48,6 +48,6 @@ public sealed class QuickSort : ISortingAlgorithm {
     public object Execute(object input) => Execute((int[])input);
     
     IEnumerable<object> IAlgorithm.ExecuteWithSteps(object input) {
-        return ExecuteWithSteps((int[])input).Cast<object>();
+        return ExecuteWithSteps((int[])input);
     }
 }
