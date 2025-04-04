@@ -1,3 +1,4 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -6,26 +7,54 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualization", "Visualization\Visualization.csproj", "{23456789-2345-2345-2345-234567890123}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsUI", "WinFormsUI\WinFormsUI.csproj", "{34567890-3456-3456-3456-345678901234}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmVisualizer.WPF", "AlgorithmVisualizer.WPF\AlgorithmVisualizer.WPF.csproj", "{211BF9C0-7824-4251-AB2E-59C9BBD72253}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{12345678-1234-1234-1234-123456789012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12345678-1234-1234-1234-123456789012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Debug|x64.Build.0 = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Debug|x86.Build.0 = Debug|Any CPU
 		{12345678-1234-1234-1234-123456789012}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12345678-1234-1234-1234-123456789012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Release|x64.ActiveCfg = Release|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Release|x64.Build.0 = Release|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Release|x86.ActiveCfg = Release|Any CPU
+		{12345678-1234-1234-1234-123456789012}.Release|x86.Build.0 = Release|Any CPU
 		{23456789-2345-2345-2345-234567890123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{23456789-2345-2345-2345-234567890123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23456789-2345-2345-2345-234567890123}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{23456789-2345-2345-2345-234567890123}.Debug|x64.Build.0 = Debug|Any CPU
+		{23456789-2345-2345-2345-234567890123}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{23456789-2345-2345-2345-234567890123}.Debug|x86.Build.0 = Debug|Any CPU
 		{23456789-2345-2345-2345-234567890123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23456789-2345-2345-2345-234567890123}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34567890-3456-3456-3456-345678901234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34567890-3456-3456-3456-345678901234}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34567890-3456-3456-3456-345678901234}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34567890-3456-3456-3456-345678901234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23456789-2345-2345-2345-234567890123}.Release|x64.ActiveCfg = Release|Any CPU
+		{23456789-2345-2345-2345-234567890123}.Release|x64.Build.0 = Release|Any CPU
+		{23456789-2345-2345-2345-234567890123}.Release|x86.ActiveCfg = Release|Any CPU
+		{23456789-2345-2345-2345-234567890123}.Release|x86.Build.0 = Release|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Debug|x64.Build.0 = Debug|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Debug|x86.Build.0 = Debug|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Release|Any CPU.Build.0 = Release|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Release|x64.ActiveCfg = Release|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Release|x64.Build.0 = Release|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Release|x86.ActiveCfg = Release|Any CPU
+		{211BF9C0-7824-4251-AB2E-59C9BBD72253}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -33,4 +62,4 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {45678901-4567-4567-4567-456789012345}
 	EndGlobalSection
-EndGlobal 
+EndGlobal

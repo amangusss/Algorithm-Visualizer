@@ -1,53 +1,124 @@
 ﻿namespace Core.Algorithms.Sorting;
 
 using Interfaces;
+using Models;
 
-public sealed class QuickSort : ISortingAlgorithm {
+
+public class QuickSort : ISortingAlgorithm {
     public string Name => "Quick Sort";
-    public int Speed { get; set; } = 50;
-    
-    public int[] Execute(int[] array) {
-        return ExecuteWithSteps(array).Last();
-    }
-    
-    public IEnumerable<int[]> ExecuteWithSteps(int[] array) {
-        var steps = new List<int[]> { (int[])array.Clone() };
-        QuickSortInternal(array, 0, array.Length - 1, steps);
-        return steps;
+    public string Description => "A divide-and-conquer algorithm that picks a pivot element and partitions the array around it.";
+
+    public AnimationState Execute(int[] array) {
+        var steps = ExecuteWithSteps(array);
+        return steps.Last();
     }
 
-    private void QuickSortInternal(int[] array, int low, int high, List<int[]> steps) {
-        if (low < high) {
-            var pivotIndex = Partition(array, low, high, steps);
-            QuickSortInternal(array, low, pivotIndex - 1, steps);
-            QuickSortInternal(array, pivotIndex + 1, high, steps);
+    public IEnumerable<AnimationState> ExecuteWithSteps(int[] array) {
+        var arr = (int[])array.Clone();
+        var activeIndices = new HashSet<int>();
+        var swappedIndices = new HashSet<int>();
+        
+        yield return new AnimationState(
+            (int[])arr.Clone(),
+            activeIndices,
+            swappedIndices,
+            "Starting Quick Sort"
+        );
+        
+        foreach (var state in QuickSortHelper(arr, 0, arr.Length - 1, activeIndices, swappedIndices)) {
+            yield return state;
         }
     }
 
-    private int Partition(int[] array, int low, int high, List<int[]> steps) {
-        var pivot = array[high];
-        var i = low - 1;
-
-        for (var j = low; j < high; j++) {
-            if (array[j] <= pivot) {
-                i++;
-                Swap(array, i, j);
-                steps.Add((int[])array.Clone());
+    private IEnumerable<AnimationState> QuickSortHelper(int[] arr, int low, int high, HashSet<int> activeIndices, HashSet<int> swappedIndices) {
+        if (low < high) {
+            var (states, pivotIndex) = Partition(arr, low, high, activeIndices, swappedIndices);
+            foreach (var state in states) {
+                yield return state;
+            }
+            
+            activeIndices.Clear();
+            activeIndices.Add(pivotIndex);
+            
+            yield return new AnimationState(
+                (int[])arr.Clone(),
+                activeIndices,
+                swappedIndices,
+                $"Pivot {arr[pivotIndex]} is in its final position at index {pivotIndex}"
+            );
+            
+            foreach (var state in QuickSortHelper(arr, low, pivotIndex - 1, activeIndices, swappedIndices)) {
+                yield return state;
+            }
+            foreach (var state in QuickSortHelper(arr, pivotIndex + 1, high, activeIndices, swappedIndices)) {
+                yield return state;
             }
         }
-
-        Swap(array, i + 1, high);
-        steps.Add((int[])array.Clone());
-        return i + 1;
     }
 
-    private static void Swap(int[] array, int i, int j) {
-        (array[i], array[j]) = (array[j], array[i]);
-    }
-
-    public object Execute(object input) => Execute((int[])input);
-    
-    IEnumerable<object> IAlgorithm.ExecuteWithSteps(object input) {
-        return ExecuteWithSteps((int[])input);
+    private (IEnumerable<AnimationState> states, int pivotIndex) Partition(int[] arr, int low, int high, HashSet<int> activeIndices, HashSet<int> swappedIndices) {
+        var pivot = arr[high];
+        var i = low - 1;
+        var states = new List<AnimationState>();
+        
+        activeIndices.Clear();
+        activeIndices.Add(high);
+        
+        states.Add(new AnimationState(
+            (int[])arr.Clone(),
+            activeIndices,
+            swappedIndices,
+            $"Selected pivot element {pivot} at index {high}"
+        ));
+        
+        for (var j = low; j < high; j++) {
+            activeIndices.Clear();
+            activeIndices.Add(j);
+            activeIndices.Add(high);
+            
+            states.Add(new AnimationState(
+                (int[])arr.Clone(),
+                activeIndices,
+                swappedIndices,
+                $"Comparing element {arr[j]} with pivot {pivot}"
+            ));
+            
+            if (arr[j] < pivot) {
+                i++;
+                
+                if (i != j) {
+                    (arr[i], arr[j]) = (arr[j], arr[i]);
+                    swappedIndices.Add(i);
+                    swappedIndices.Add(j);
+                    
+                    states.Add(new AnimationState(
+                        (int[])arr.Clone(),
+                        activeIndices,
+                        swappedIndices,
+                        $"Swapped elements at positions {i} and {j}"
+                    ));
+                }
+            }
+        }
+        
+        (arr[i + 1], arr[high]) = (arr[high], arr[i + 1]);
+        swappedIndices.Add(i + 1);
+        swappedIndices.Add(high);
+        
+        states.Add(new AnimationState(
+            (int[])arr.Clone(),
+            activeIndices,
+            swappedIndices,
+            $"Placed pivot {pivot} in its final position at index {i + 1}"
+        ));
+        
+        states.Add(new AnimationState(
+            (int[])arr.Clone(),
+            activeIndices,
+            swappedIndices,
+            $"Partition complete. Pivot {pivot} is at index {i + 1}"
+        ));
+        
+        return (states, i + 1);
     }
 }

@@ -1,7 +1,10 @@
 ﻿namespace Core.Interfaces;
 
-public interface ISortingAlgorithm : IAlgorithm
-{
-    new int[] Execute(int[] array);
-    new IEnumerable<int[]> ExecuteWithSteps(int[] array);
+using Models;
+
+public interface ISortingAlgorithm : IAlgorithm {
+    new AnimationState Execute(int[] array);
+    new IEnumerable<AnimationState> ExecuteWithSteps(int[] array);
+    string Name { get; }
+    string Description { get; }
 }  

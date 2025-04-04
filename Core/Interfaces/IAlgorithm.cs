@@ -1,8 +1,8 @@
 namespace Core.Interfaces;
 
-public interface IAlgorithm{
-    string Name { get; }
-    int Speed { get; set; }
-    object Execute(object input);
-    IEnumerable<object> ExecuteWithSteps(object input);
+using Models;
+
+public interface IAlgorithm {
+    AnimationState Execute(int[] array);
+    IEnumerable<AnimationState> ExecuteWithSteps(int[] array);
 }

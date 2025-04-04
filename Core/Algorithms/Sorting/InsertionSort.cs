@@ -1,59 +1,58 @@
 namespace Core.Algorithms.Sorting;
 
 using Interfaces;
+using Models;
 
-public sealed class InsertionSort : ISortingAlgorithm {
+public class InsertionSort : ISortingAlgorithm {
     public string Name => "Insertion Sort";
-    public int Speed { get; set; } = 50;
-    
-    object IAlgorithm.Execute(object input) {
-        if (input is not int[] array) {
-            throw new ArgumentException("Input must be an integer array", nameof(input));
-        }
-        return Execute(array);
+    public string Description => "A simple sorting algorithm that builds the final sorted array one item at a time.";
+
+    public AnimationState Execute(int[] array) {
+        var steps = ExecuteWithSteps(array);
+        return steps.Last();
     }
-    
-    IEnumerable<object> IAlgorithm.ExecuteWithSteps(object input) {
-        if (input is not int[] array) {
-            throw new ArgumentException("Input must be an integer array", nameof(input));
-        }
-        return ExecuteWithSteps(array);
-    }
-    
-    public int[] Execute(int[] array) {
-        var result = (int[])array.Clone();
+
+    public IEnumerable<AnimationState> ExecuteWithSteps(int[] array) {
+        var n = array.Length;
+        var arr = (int[])array.Clone();
         
-        for (int i = 1; i < result.Length; i++) {
-            var key = result[i];
+        for (var i = 1; i < n; i++) {
+            var key = arr[i];
             var j = i - 1;
+            var activeIndices = new HashSet<int> { i };
+            var swappedIndices = new HashSet<int>();
             
-            while (j >= 0 && result[j] > key) {
-                result[j + 1] = result[j];
+            yield return new AnimationState(
+                (int[])arr.Clone(),
+                activeIndices,
+                swappedIndices,
+                $"Looking for insertion position for element {key} at index {i}"
+            );
+            
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                activeIndices.Add(j);
+                swappedIndices.Add(j + 1);
+                
+                yield return new AnimationState(
+                    (int[])arr.Clone(),
+                    activeIndices,
+                    swappedIndices,
+                    $"Moving element {arr[j]} from position {j} to {j + 1}"
+                );
+                
                 j--;
             }
             
-            result[j + 1] = key;
-        }
-        
-        return result;
-    }
-    
-    public IEnumerable<int[]> ExecuteWithSteps(int[] array) {
-        var result = (int[])array.Clone();
-        yield return (int[])result.Clone();
-        
-        for (int i = 1; i < result.Length; i++) {
-            var key = result[i];
-            var j = i - 1;
+            arr[j + 1] = key;
+            swappedIndices.Add(j + 1);
             
-            while (j >= 0 && result[j] > key) {
-                result[j + 1] = result[j];
-                j--;
-                yield return (int[])result.Clone();
-            }
-            
-            result[j + 1] = key;
-            yield return (int[])result.Clone();
+            yield return new AnimationState(
+                (int[])arr.Clone(),
+                activeIndices,
+                swappedIndices,
+                $"Inserted element {key} at position {j + 1}"
+            );
         }
     }
 } 
