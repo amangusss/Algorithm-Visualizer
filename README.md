@@ -63,10 +63,14 @@ The executable will be created in:
 ## Usage
 
 1. Select a sorting algorithm from the dropdown menu
+![Select algorihtm](screenshots/firstScreen.png)
 2. Enter the desired array size (1-100)
 3. Click "Generate Array" to create a new random array
+![Generate Array](screenshots/secondScreen.png)
 4. Use the controls to:
    - Play/Pause the animation
    - Step through the algorithm
    - Adjust animation speed
+![Start visualization](screenshots/thirdScreen.png)
 5. Watch the visualization and read the algorithm description
+![Final result](screenshots/fourthScreen.png)
